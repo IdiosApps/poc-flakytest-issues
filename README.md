@@ -47,3 +47,17 @@ GitHub offers a lot of tooling that could help make this achieveable:
 - Give total disruption count
 
 However, it costs $100 a month (arguably, it could save more dev time than the monetary cost - so that might be a good price!.
+
+---
+---
+
+# Experimenting
+
+## Creating issues
+https://github.com/marketplace/actions/create-an-issue Looks really neat:
+
+- Create issues with a template
+- Generate date, be passed e.g. title from ENV
+- Can search existing issues (by exact title match), and update them
+
+I don't feel like I need to look further until giving this one a good try!

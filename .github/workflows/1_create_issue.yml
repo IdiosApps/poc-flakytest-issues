@@ -1,0 +1,16 @@
+# Based on example at https://github.com/marketplace/actions/create-an-issue
+# TODO explore options like [update_existing: true, search_existing: all]
+on: workflow_dispatch # manual, e.g. in UI
+name: Create an issue on push
+permissions:
+  contents: read
+  issues: write
+jobs:
+  stuff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: "test issue #1"
