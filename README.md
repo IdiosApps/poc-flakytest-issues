@@ -62,3 +62,26 @@ https://github.com/marketplace/actions/create-an-issue Looks really neat:
 - Can search existing issues (by exact title match), and update them
 
 I don't feel like I need to look further until giving this one a good try!
+
+## Checking for failed tests
+
+Can we extract:
+- the test name?
+- the test path?
+- the expected/actual values?
+
+Looking at some Actions, it seems JUnit will output an XML report anyway.
+
+- https://github.com/marketplace/actions/junit-report-action
+  - Uses that XML output to annotate PRs with failures (handy! but not for this poc)
+  - Gives a count of failed cases with an output: `outputs.failed`
+    - This gives me hope that there will be more Actions that parse the XML - but we'll have to search more to see if one can give us the information straight back to the Action.
+- https://github.com/marketplace/actions/test-reporter
+  - For our purposes, looks similar to the above
+- Parse XML and give results for the matching xpath
+
+I think we had best generate some XML to see what we're playing with!
+
+
+
+
