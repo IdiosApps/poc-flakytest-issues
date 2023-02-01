@@ -1,5 +1,5 @@
 ---
-title: {{ env.TITLE }}
+title: "{{ env.TITLE }}"
 labels: flaky
 ---
 
