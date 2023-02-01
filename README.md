@@ -23,6 +23,7 @@ GitHub offers a lot of tooling that could help make this achieveable:
 - Tests
   - At first, have one passing test and one failing test
   - On every failed test, an Issue should either 1. be created, or 2. be incremented
+  - Then have two failing tests; two issues should be created/updated
 - Actions
   - Ideally, use a combination of off-the-shelf Actions
     - Writing our own Action may be required, but we may not have to reinvent (and maintain!) the wheel 
