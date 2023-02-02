@@ -154,7 +154,46 @@ For the XML -> GHA -> Issues chain, I'm not sure if it'll be easier to do it all
 For a start, we can quickly understand and play with extracting the XML data in a GitHub Action by examining an existing Action around JUnit XML flakiness.
 
 To try and leverage the create-issue action we've already tried, we can try and make an Action that outputs some text in our expected format and see how we can munge it.
+I want to look at outputs of actions first - if it's too fiddly to use them as middle-man of data between Actions, it'll suggest we should have a single action that both scans XML and creates the issues.
 
+### GitHub Action outputs
+
+The first page I come across says
+
+> Outputs are Unicode strings, and can be a maximum of 1 MB. The total of all outputs in a workflow run can be a maximum of 50 MB.
+> ~ https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+
+I'm not sure that the output of steps in a "workflow" are the same as the outputs of an "Action".
+If they are, there might be some kind of nexted arrays "[[title1, error1,], [title2, error2]]" to hold data. Hopefully we can use JSON/objects for richer interactions!
+
+I know there are javascript/typescript Action templates to bootstrap their development, e.g. https://github.com/actions/typescript-action
+A "Hello World" action is recommended, which [defines the Action's outputs in `action.yml`](https://github.com/actions/hello-world-javascript-action/blob/main/action.yml):
+
+```yaml
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+```
+
+After checking many repos, outputs are fairly rare. The most extensive us of them I saw was in:
+- https://github.com/docker/build-push-action/blob/master/action.yml#L106
+- https://github.com/release-drafter/release-drafter/blob/master/action.yml#L66
+
+So, it seems that I will be making an end-to-end action that both parses XML and handles Issue management.
+- :) it will be a good learning experience to make an Action
+- :( I can't use the Actions I've seen, and just tie them together in yaml
+- :) I get more control with JS/TS
+
+### Creating (and publishing?) a basic Action
+
+
+
+### Parsing JUnit XML in an Action
+...
+
+### Creating/updating Issues in an Action
+
+Let's look at some [top Actions on the marketplace](https://github.com/marketplace?category=&query=sort%3Apopularity-desc&type=actions&verification=), and see if there's any cool objects/json in outputs
 
 
 # OK, but I can't make these flaky tests not flaky
