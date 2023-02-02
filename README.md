@@ -144,5 +144,45 @@ If we think a test might be flaky but for multiple different reasons, the title 
 
 Oh, and what about our build tool giving us a single XML file to work with?
 
-### Making a single .xml file
+According to https://github.com/marketplace/actions/junit-report-action, each file is scanned separately: `**/junit-reports/TEST-*.xml`
 
+Whatever we come up with should check each test output - no funky merging necessary.
+
+## Failures in XML -> GHA -> Issues
+
+For the XML -> GHA -> Issues chain, I'm not sure if it'll be easier to do it all in one action.
+For a start, we can quickly understand and play with extracting the XML data in a GitHub Action by examining an existing Action around JUnit XML flakiness.
+
+To try and leverage the create-issue action we've already tried, we can try and make an Action that outputs some text in our expected format and see how we can munge it.
+
+
+
+# OK, but I can't make these flaky tests not flaky
+
+The observability this POC gives you could still be valuable - but if you can't fix your flaky tests then I'd recommend reading around what other companies have done to address these kinds of tests:
+
+- https://www.uber.com/en-GB/blog/handling-flaky-tests-java
+  - they did ...
+- https://github.blog/2020-12-16-reducing-flaky-builds-by-18x
+  - they did ...
+- https://gradle.com/blog/do-you-regularly-schedule-flaky-test-days/
+  - dedicate some time to figuring *something* out
+    - ad-hoc is OK
+  - Gradle Enterprise can measure flakiness for you
+    - > “What gets measured gets improved.” ~ Peter Drucker, Business Luminary
+- feel free to link more, and give a short summary
+
+
+# Miscellaneous notes
+- For Scala
+  - For mill
+    - https://github.com/vic/mill-test-junit-report
+      - JSON test output -> JUnit XML
+  - for sbt
+    - https://www.scala-sbt.org/1.x/docs/Testing.html#Test+Reports 
+      - JUnit XML reports by default
+
+# FAQ
+- > Won't there be a bunch of issues from failed tests as people develop PRs?
+  - For now, I'll build the POC to run manually/on CRON/on push to main
+  - So, any failing tests on `main` must have passed at least once (assuming PR checks include tests) - i.e. only flaky tests will be recorded
