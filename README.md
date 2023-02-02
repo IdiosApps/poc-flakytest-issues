@@ -82,6 +82,26 @@ Looking at some Actions, it seems JUnit will output an XML report anyway.
 
 I think we had best generate some XML to see what we're playing with!
 
+### Make some passing/failing JUnit tests
 
+I used IntelliJ's https://start.spring.io/ integration to make a Maven project, and copied files over.
 
+Running `.\gradlew.bat test` creeates `build/test-results/test/TEST-com.example.demo.DemoApplicationTests.xml`.
+
+For each test file, an .xml is generated - maybe there is an arg to collapse results into one file.
+Here's how it looks:
+
+```xml
+<!-- A failing testcase has a failure block inside -->
+<testcase name="iFail()" classname="com.example.demo.DemoApplicationTests" time="0.286">
+  <failure message="java.lang.AssertionError" type="java.lang.AssertionError">java.lang.AssertionError
+    at com.example.demo.DemoApplicationTests.iFail(DemoApplicationTests.java:15)
+    <!-- 99 lines of useless stack trace -->
+  </failure>
+</testcase>
+<!-- The passing test below closes itself -->
+<testcase name="contextLoads()" classname="com.example.demo.DemoApplicationTests" time="0.002"/>
+```
+
+Let's see what happens if we add proper assertions.
 
