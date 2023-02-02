@@ -103,5 +103,46 @@ Here's how it looks:
 <testcase name="contextLoads()" classname="com.example.demo.DemoApplicationTests" time="0.002"/>
 ```
 
-Let's see what happens if we add proper assertions.
+Let's see what happens if we add proper assertions:
+
+```xml
+<testcase name="iFail()" classname="com.example.demo.DemoApplicationTests" time="0.286">
+  <!-- We get a pretty descriptive failure message now! -->
+  <failure message="org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;1&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;1&gt;
+  at app//org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+  at app//org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+  at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+  at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+  at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:527)
+  <!-- possibly useful line, pointing to the line where the error happened  -->
+  at app//com.example.demo.DemoApplicationTests.iFail(DemoApplicationTests.java:16)
+  <!-- boring stack  -->
+  </failure>
+</testcase>
+```
+
+At this point, I'm thinking it would be great if an Action could parse this and output something like:
+
+```
+Errors = [Error]
+Error(testName, className, failureMessage)
+```
+
+So we could do something like this:
+
+```
+action.output.errors . map ( error => {
+  issueTitle = "${error.testName} in ${error.className}"
+  issueBody = error.failureMessage
+  makeIssueFor(issueTitle, issueBody)
+})
+```
+
+If we think a test might be flaky but for multiple different reasons, the title could include the reason too (or maybe a short hash if there is a character limit!).
+
+[Okay, I'll admit I got curious and went on another tangent here. 1024 characters is allowed, so (for now!) lots of info seems fine!](https://github.com/IdiosApps/poc-flakytest-issues/issues/2#issuecomment-1412955980)
+
+Oh, and what about our build tool giving us a single XML file to work with?
+
+### Making a single .xml file
 
