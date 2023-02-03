@@ -186,7 +186,37 @@ So, it seems that I will be making an end-to-end action that both parses XML and
 
 ### Creating (and publishing?) a basic Action
 
+https://github.com/actions/typescript-action
+https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action
 
+Used template in a codespace, pretty nice. Has stuff like NPM intalled already
+https://github.com/actions/typescript-action -> use this template -> open in a codespace
+
+Never heard of `ncc`, and it's not obvious what the index.js/root code file should be.
+`ncc build src/main.ts -o dist --source-map` gives reasonable output, based on https://jeremy.hu/github-actions-build-javascript-action-part-1/
+Oh - nevermind, ncc is already in there: `"package": "ncc build --source-map --license licenses.txt",`
+// todo raise a PR to clarify docs
+
+https://github.com/IdiosApps/typescript-action/tree/main/dist already exists, so packaging/adding
+
+The action has core.output('time'), but action.yml doesn't specify the output
+https://github.com/actions/typescript-action/actions/runs/4011919866/jobs/6889935536
+
+whoo, I see output
+https://github.com/IdiosApps/typescript-action/actions/runs/4080196218/jobs/7032407162
+
+Had to have another job that uses output of previous job too:
+https://github.com/IdiosApps/typescript-action/commit/afb17fb6e44b6aec4e4c7e5069f64a5551c7dc49
+
+https://github.com/IdiosApps/typescript-action/actions/runs/4080202925/jobs/7032420452
+OK, outputs aren't necessary to declare... but it's probably good practice to signal it - especially in a template!
+
+// TODO pr
+// 1. echo time "${{needs....}}"
+// 2. document outputs in action.yml
+  // JS version did it for ages
+  // comment that it's nice to signal outputs to your users (but they are accessible even if not declared here) - https://github.com/actions/javascript-action/commit/198d21cc2989adbbdf917c940cc48fb5d85c5fda
+// 3. clarify "Then run ncc and push the results:" -> "Then package a distribution ([via ncc](https://github.com/IdiosApps/typescript-action/blob/main/package.json#L12)) results:"
 
 ### Parsing JUnit XML in an Action
 ...
@@ -225,3 +255,6 @@ The observability this POC gives you could still be valuable - but if you can't 
 - > Won't there be a bunch of issues from failed tests as people develop PRs?
   - For now, I'll build the POC to run manually/on CRON/on push to main
   - So, any failing tests on `main` must have passed at least once (assuming PR checks include tests) - i.e. only flaky tests will be recorded
+
+# Random todos
+- Add to https://github.com/sdras/awesome-actions#readme if I make something nice
