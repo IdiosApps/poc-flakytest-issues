@@ -211,12 +211,9 @@ https://github.com/IdiosApps/typescript-action/commit/afb17fb6e44b6aec4e4c7e5069
 https://github.com/IdiosApps/typescript-action/actions/runs/4080202925/jobs/7032420452
 OK, outputs aren't necessary to declare... but it's probably good practice to signal it - especially in a template!
 
-// TODO pr
-// 1. echo time "${{needs....}}"
-// 2. document outputs in action.yml
-  // JS version did it for ages
-  // comment that it's nice to signal outputs to your users (but they are accessible even if not declared here) - https://github.com/actions/javascript-action/commit/198d21cc2989adbbdf917c940cc48fb5d85c5fda
-// 3. clarify "Then run ncc and push the results:" -> "Then package a distribution ([via ncc](https://github.com/IdiosApps/typescript-action/blob/main/package.json#L12)) results:"
+I raised a PR to try and make the new user experience for Action templates a little smoother:
+https://github.com/actions/typescript-action/pull/645
+
 
 ### Parsing JUnit XML in an Action
 ...
