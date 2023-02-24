@@ -222,6 +222,12 @@ https://github.com/actions/typescript-action/pull/645
 
 Let's look at some [top Actions on the marketplace](https://github.com/marketplace?category=&query=sort%3Apopularity-desc&type=actions&verification=), and see if there's any cool objects/json in outputs
 
+# Can I use this action in GitHub Enterprise?
+
+TBD!
+- If we use other actions in our Action (i.e. if it's composite): No
+- If we write everything from scratch (no nested Actions): Yes
+If you want to learn more on why that's the case (at the time of writing), see https://github.com/rossjrw/pr-preview-action/issues/33#issuecomment-1434880887
 
 # OK, but I can't make these flaky tests not flaky
 
